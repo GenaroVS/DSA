@@ -70,10 +70,30 @@ class LinkedNode {
     }
   }
 
-  hasCycle(head) {
-    if (!head || !head.next) return false;
-    var slow = head;
-    var fast = head;
+  deleteAllValues(val) {
+    if (!this.head) return null;
+    var current = this.head;
+
+    while (current.next) {
+      while (current.next && current.next.val === val) {
+        current.next = current.next.next;
+      }
+      if (current.next) {
+        current = current.next;
+      }
+    }
+
+    if (this.head.val === val) {
+      this.head = this.head.next;
+    }
+
+    return this.head;
+  }
+
+  hasCycle() {
+    if (!this.head || !this.head.next) return false;
+    var slow = this.head;
+    var fast = this.head;
 
     while (fast && fast.next) {
       slow = slow.next;
@@ -90,5 +110,105 @@ class LinkedNode {
     return false;
   }
 
+  getIntersection(headB) {
+    var nodeA = this.head;
+    var nodeB = headB;
+    var lastA = null;
+    var lastB = null;
 
+    while(nodeA && nodeB) {
+      if (nodeA === nodeB) {
+        return nodeA;
+      }
+      if (!nodeA.next) {
+        lastA = nodeA;
+        nodeA = headB;
+      } else {
+        nodeA = nodeA.next;
+      }
+      if (!nodeB.next) {
+        lastB = nodeB;
+        nodeB = this.head;
+      } else {
+        nodeB = nodeB.next;
+      }
+      if (lastB && lastA && lastB !== lastA) {
+        return null;
+      }
+    }
+  }
+
+  reverse() {
+    var current = this.head;
+    while (current && current.next) {
+      var temp = this.head;
+      this.head = current.next;
+      current.next = current.next.next;
+      this.head.next = temp;
+    }
+    return this.head;
+  }
+
+  merge(l2) {
+    if (!this.head && !l2) return null;
+
+    var node1 = this.head;
+    var node2 = l2;
+    var node3 = this.createNode(null, null);
+    var merged = new LinkedNode(node3, null);
+
+    while (node1 || node2) {
+      if (!node2 || (node1 && node1.val < node2.val)) {
+        node3.val = node1.val;
+        node1 = node1.next;
+      } else if (!node1 || (node2 && node1.val >= node2.val)) {
+        node3.val = node2.val;
+        node2 = node2.next;
+      }
+      if (node1 || node2) {
+        node3.next = this.createNode(null, null);
+      } else {
+        merged.tail = node3;
+      }
+      node3 = node3.next;
+    }
+
+    return merged;
+  }
+
+  rotate(k) {
+    if (!this.head) {
+      return null;
+    }
+
+    // Find length of LL
+    var len = 0;
+    var node = this.head;
+    while (node) {
+      len++;
+      node = node.next;
+    }
+    if (k % len === 0) return this.head;
+
+    // separate into two segments
+    k = k % len;
+    node = this.head;
+    var pivotIdx = len - k;
+    var newHead = this.head;
+    while (node.next) {
+      if (pivotIdx === 1) {
+        var temp = node.next;
+        node.next = null;
+        node = temp;
+        newHead = temp;
+      } else {
+        node = node.next
+      }
+      pivotIdx--;
+    }
+    // Connect right segement to start of left segment and return head.
+    node.next = this.head;
+    this.head = newHead;
+    return this.head;
+  }
 }
