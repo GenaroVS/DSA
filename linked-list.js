@@ -211,4 +211,30 @@ class LinkedNode {
     this.head = newHead;
     return this.head;
   }
+
+  fromArray(arr) {
+    var current = this.createNode(null, null);
+    this.head = current;
+    for (var i = 0; i < arr.length; i++) {
+      current.val = arr[i];
+      if (i === arr.length - 1) {
+        this.tail = current;
+      } else {
+        current.next = this.createNode(null, null);
+      }
+      current = current.next;
+    }
+
+    return this.head;
+  }
+
+  toArray() {
+    var arr = [];
+    var current = this.head;
+    while (current) {
+      arr.push(current.val);
+      current = current.next;
+    }
+    return arr;
+  }
 }
