@@ -81,4 +81,17 @@ class binaryTree {
     var rightDepth = maxDepth(root.right, depth);
     return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
   }
+
+  isValidBST(root = this.root, min, max) {
+    if (!root) return true;
+
+    if (root.val <= min || root.val >= max) {
+      return false;
+    }
+
+    var validLeft = isValidBST(root.left, min, root.val);
+    var validRight = isValidBST(root.right, root.val, max);
+
+    return validLeft && validRight;
+  }
 }
