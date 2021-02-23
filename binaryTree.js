@@ -73,4 +73,12 @@ class binaryTree {
     results.push(level);
     return results;
   };
+
+  maxDepth(root = this.root, depth = 0) {
+    if (!root) return 0;
+
+    var leftDepth = maxDepth(root.left, depth);
+    var rightDepth = maxDepth(root.right, depth);
+    return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+  }
 }
