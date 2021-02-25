@@ -1,7 +1,11 @@
-// You’re given a read only array of n integers.
-// Find out if any integer occurs more than n/k times in the array
-// in linear time and constant additional space.
-
+/**
+ * Finds all numbers in A that occurs more than A.length / K times
+ * O(n) Time
+ * O(1) Space
+ * @param {array} A
+ * @param {number} k
+ * @return {array}
+ */
 var nOver3 = (A) => {
   var min = A.length / 3;
   var count1 = 0;

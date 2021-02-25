@@ -1,3 +1,9 @@
+/**
+ * @param {*} val
+ * @param {node} left
+ * @param {node} right
+ * @return {void}
+ */
 function Node(val, left, right) {
   this.val = val;
   this.left = left;
@@ -9,6 +15,11 @@ class binaryTree {
     this.root = node;
   }
 
+  /**
+   * @param {node} root
+   * @param {array} arr
+   * @return {array}
+   */
   preorder(root = this.root, arr = []) {
     if (!root) return arr;
 
@@ -19,6 +30,11 @@ class binaryTree {
     return arr;
   };
 
+  /**
+   * @param {node} root
+   * @param {array} arr
+   * @return {array}
+   */
   inorder(root = this.root, arr = []) {
     if (!root) return arr;
 
@@ -29,6 +45,11 @@ class binaryTree {
     return arr;
   };
 
+  /**
+   * @param {node} root
+   * @param {array} arr
+   * @return {array}
+   */
   postorder(root = this.root, arr = []) {
     if (!root) return arr;
 
@@ -39,6 +60,9 @@ class binaryTree {
     return arr;
   };
 
+  /**
+   * @return {array}
+   */
   levelOrder() {
     if (!this.root) return [];
 
@@ -74,6 +98,11 @@ class binaryTree {
     return results;
   };
 
+  /**
+   * @param {node} root
+   * @param {number} depth
+   * @return {number} Longest root to leaf path
+   */
   maxDepth(root = this.root, depth = 0) {
     if (!root) return 0;
 
@@ -82,6 +111,12 @@ class binaryTree {
     return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
   }
 
+  /**
+   * @param {node} root
+   * @param {number} min
+   * @param {number} max
+   * @return {boolean} Right side must be larger, left side must be smaller
+   */
   isValidBST(root = this.root, min, max) {
     if (!root) return true;
 
@@ -93,5 +128,25 @@ class binaryTree {
     var validRight = isValidBST(root.right, root.val, max);
 
     return validLeft && validRight;
+  }
+
+  /**
+   * @param {node} root
+   * @return {boolean} Whether right side is mirror of left side
+   */
+  isSymmetric(root = this.root) {
+    if (!root) return true;
+
+    function isValid(left, right) {
+      if (!left || !right) {
+        return left === right;
+      }
+      if (left.val !== right.val) {
+        return false;
+      }
+      return isValid(left.left, right.right) && isValid(left.right, right.left);
+    }
+
+    return isValid(root.left, root.right);
   }
 }

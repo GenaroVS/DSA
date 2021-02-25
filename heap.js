@@ -4,12 +4,20 @@ class MaxHeap {
     this.size = this.storage.length;
   }
 
+  /**
+   * Heapify the entire tree
+   */
   fullHeapify() {
     for (var i = Math.floor(this.size / 2) - 1; i >= 0; i--) {
       this.heapify(i);
     }
   }
 
+  /**
+   * @param {number} i Index of container
+   * @param {number} size Size of container
+   * @return {void}
+   */
   heapify(i, size = this.size) {
     var largest = i;
     var left = this.leftChild(i);
@@ -27,6 +35,10 @@ class MaxHeap {
     }
   }
 
+  /**
+   * @param {number} i Move up the tree (opposite of heapify)
+   * @return {void}
+   */
   bubbleUp(i) {
     var parent = this.parentPos(i);
     while (i > 0 && this.storage[parent] < this.storage[i]) {
@@ -36,6 +48,11 @@ class MaxHeap {
     }
   }
 
+  /**
+   * O(nlog(n)) Time
+   * O(1) Space
+   * @return {void} Sorts the container
+   */
   heapSort() {
     for (var i = this.size - 1; i >= 1; i--) {
       this.swap(0, i);
@@ -43,6 +60,9 @@ class MaxHeap {
     }
   }
 
+  /**
+   * @return {number}
+   */
   removeMax() {
     if (this.size < 1) return null;
     this.swap(0, this.size - 1);
@@ -51,6 +71,11 @@ class MaxHeap {
     return max;
   }
 
+  /**
+   * @param {number} i
+   * @param {number} value
+   * @return {void} Changes item after initally added
+   */
   setItem(i, value) {
     if (value < this.storage[i]) {
       this.storage[i] = value
@@ -61,19 +86,35 @@ class MaxHeap {
     }
   }
 
+  /**
+   * @param {number} value
+   * @return {void} Initally adds item
+   */
   insertItem(value) {
     this.storage.push(value);
     this.bubbleUp(this.size - 1);
   }
 
+  /**
+   * @param {number} i
+   * @return {number} Parent index of child
+   */
   parentPos(i) {
     return Math.floor((i - 1) / 2);
   }
 
+  /**
+   * @param {number} i
+   * @return {number} Left child of parent
+   */
   leftChild(i) {
     return i * 2 + 1;
   }
 
+  /**
+   * @param {number} i
+   * @return {number} Right child of parent
+   */
   rightChild(i) {
     return i * 2 + 2;
   }
@@ -84,6 +125,8 @@ class MaxHeap {
     this.storage[j] = temp;
   }
 }
+
+module.exports = MaxHeap;
 
 
 /* var arr = [4,7,3,9,1,2,8,5,6];

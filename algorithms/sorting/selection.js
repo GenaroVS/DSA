@@ -1,4 +1,10 @@
-export default selectionSort = (arr) => {
+/**
+ * O(n^2) Time
+ * O(1) Space
+ * @param {array} arr
+ * @return {void}
+ */
+var selectionSort = (arr) => {
   let len = arr.length;
   for (let i = 0; i < len; i++) {
     let min = i;

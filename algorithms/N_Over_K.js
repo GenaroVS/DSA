@@ -1,3 +1,11 @@
+/**
+ * Finds all numbers in A that occurs more than A.length / K times
+ * O(nk) Time
+ * O(k) Space
+ * @param {array} A
+ * @param {number} k
+ * @return {array}
+ */
 var nOverK = (A, k) => {
   var freq = new Array(k - 1);
   var results = [];

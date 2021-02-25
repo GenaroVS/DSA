@@ -1,3 +1,11 @@
+/**
+ * O(nlog(n)) Time
+ * O(log(n)) Space
+ * @param {array} arr
+ * @param {number} low
+ * @param {number} high
+ * @return {void}
+ */
 var quickSort = (arr, low, high) => {
   if (low < high) {
     var pivot = partition(arr, low, high);

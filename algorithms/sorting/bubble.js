@@ -4,6 +4,12 @@ var swap = (arr, idx1, idx2) => {
   arr[idx2] = temp;
 }
 
+/**
+ * O(n^2) Time
+ * O(1) Space
+ * @param {array} arr
+ * @return {void}
+ */
 var bubbleSort = (arr) => {
   for (var i = 0; i < arr.length; i++) {
     var swapped = false;

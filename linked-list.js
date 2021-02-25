@@ -1,23 +1,36 @@
-class LinkedNode {
+class LinkedList {
   constructor(head, tail) {
     this.head = head;
     this.tail = tail;
   }
 
+  /**
+   * @param {*} val
+   * @param {node} next
+   * @return {node}
+   */
   createNode(val, next) {
     return { val, next }
   }
 
+  /**
+   * @param {*} val Value added at the start
+   * @return {void}
+   */
   unshift(val) {
-    var node = createNode(val, this.head);
+    var node = this.createNode(val, this.head);
     this.head = node;
     if (!this.tail) {
       this.tail = node;
     }
   }
 
+  /**
+   * @param {*} val Value added at the end
+   * @return {void}
+   */
   push(val) {
-    var node = createNode(val, null);
+    var node = this.createNode(val, null);
     if (this.head === null) {
         this.head = node;
         this.tail = node;
@@ -27,6 +40,11 @@ class LinkedNode {
     }
   }
 
+  /**
+   * @param {number} index (0-based)
+   * @param {*} val
+   * @return {void}
+   */
   addAtIndex(index, val) {
     var current = this.head;
     var node = this.createNode(val, null);
@@ -49,6 +67,10 @@ class LinkedNode {
     }
   }
 
+  /**
+   * @param {number} index (0-based)
+   * @return {void}
+   */
   deleteAtIndex(index) {
     if (!this.head) return null;
     if (index === 0) {
@@ -70,6 +92,10 @@ class LinkedNode {
     }
   }
 
+  /**
+   * @param {*} val
+   * @return {head}
+   */
   deleteAllValues(val) {
     if (!this.head) return null;
     var current = this.head;
@@ -90,6 +116,9 @@ class LinkedNode {
     return this.head;
   }
 
+  /**
+   * @return {boolean}
+   */
   hasCycle() {
     if (!this.head || !this.head.next) return false;
     var slow = this.head;
@@ -110,6 +139,10 @@ class LinkedNode {
     return false;
   }
 
+  /**
+   * @param {head} headB
+   * @return {boolean}
+   */
   getIntersection(headB) {
     var nodeA = this.head;
     var nodeB = headB;
@@ -138,6 +171,9 @@ class LinkedNode {
     }
   }
 
+  /**
+   * @return {head}
+   */
   reverse() {
     var current = this.head;
     while (current && current.next) {
@@ -149,6 +185,10 @@ class LinkedNode {
     return this.head;
   }
 
+  /**
+   * @param {head} l2
+   * @return {head} New linked list, 'this' not modified
+   */
   merge(l2) {
     if (!this.head && !l2) return null;
 
@@ -176,6 +216,10 @@ class LinkedNode {
     return merged;
   }
 
+  /**
+   * @param {number} k Number of rotations right-wards
+   * @return {head}
+   */
   rotate(k) {
     if (!this.head) {
       return null;
@@ -212,6 +256,10 @@ class LinkedNode {
     return this.head;
   }
 
+  /**
+   * @param {array} arr
+   * @return {head}
+   */
   fromArray(arr) {
     var current = this.createNode(null, null);
     this.head = current;
@@ -228,6 +276,9 @@ class LinkedNode {
     return this.head;
   }
 
+  /**
+   * @return {array}
+   */
   toArray() {
     var arr = [];
     var current = this.head;
@@ -238,3 +289,5 @@ class LinkedNode {
     return arr;
   }
 }
+
+module.exports = LinkedList;

@@ -1,3 +1,9 @@
+/**
+ * O(n^2) Time
+ * O(1) Space
+ * @param {array} arr
+ * @return {void}
+ */
 var insertionSort = (arr) => {
   var n = arr.length;
   for (var i = 1; i < n; i++) {

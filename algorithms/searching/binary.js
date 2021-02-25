@@ -1,5 +1,12 @@
-// Assume sorted list
-
+/**
+ * O(log(n)) Time
+ * O(1) Space
+ * @param {array} arr
+ * @param {number} target
+ * @param {number} start
+ * @param {number} end
+ * @return {number} Index of target (-1 if it doesn't exist)
+ */
 var binarySearch = (arr, target, start = 0, end = arr.length) => {
   var mid = start + Math.floor((end - start) / 2);
 

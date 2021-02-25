@@ -1,3 +1,9 @@
+/**
+ * O(nlog(n)) Time
+ * O(n) Space
+ * @param {array} arr
+ * @return {void}
+ */
 var merge = function(arr, start, mid, end) {
   var merged = [], i = start, j = mid + 1;
 

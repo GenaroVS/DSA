@@ -1,3 +1,10 @@
+/**
+ * Find maximum sum of subarray in array nums
+ * O(n) Time
+ * o(1) Space
+ * @param {array} nums
+ * @return {number}
+ */
 var maxSubArray = (nums) => {
   var max = Number.MIN_SAFE_INTEGER;
   var sum = 0;
