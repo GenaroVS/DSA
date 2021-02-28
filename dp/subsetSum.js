@@ -5,7 +5,7 @@
  * @return {boolean}
  */
 const subsetSum = (nums, sum) => {
-  var dp = Array(nums.length + 1).fill(null).map(() => Array(sum + 1).fill(0));
+  var dp = Array(nums.length + 1).fill(null).map(() => Array(sum + 1));
 
   for (var i = 0; i <= nums.length; i++) { // i = number
     for (var j = 0; j <= sum; j++) { // j = current sum
@@ -15,6 +15,7 @@ const subsetSum = (nums, sum) => {
         dp[i][j] = false;
       } else {
         dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]]
+        // omit number OR substract from sum and see if sub-problem works with new sum and previous number
       }
     }
   }
@@ -22,6 +23,8 @@ const subsetSum = (nums, sum) => {
   return dp[nums.length][sum];
 };
 
+module.exports = subsetSum;
 
-console.log(subsetSum([25,9,8,2], 10))
-console.log(subsetSum([0,1,2,3], 10))
+
+//console.log(subsetSum([25,9,8,2], 10))
+//console.log(subsetSum([0,1,2,3], 10))

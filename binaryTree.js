@@ -67,41 +67,28 @@ class binaryTree {
     if (!this.root) return [];
 
     var results = [];
-    var queue = [this.root];
-    var leftMost = this.root;
-    var level = [];
+    var level = 0;
+    var queue = [[this.root, level]];
 
     while (queue.length > 0) {
-      var current = queue.shift();
+      var [current, level] = queue.shift();
 
-      if (current === leftMost && current !== this.root) {
-        results.push(level);
-        level = [];
+      if (results.length <= level) {
+        results.push([]);
       }
+      results[level].push(current.val);
 
-      if (!leftMost || current === leftMost) {
-        if (current.left) {
-          leftMost = current.left;
-        } else if (current.right) {
-          leftMost = current.right;
-        } else {
-          leftMost = null;
-        }
-      }
-
-      level.push(current.val);
-      if (current.left) queue.push(current.left);
-      if (current.right) queue.push(current.right);
+      if (current.left) queue.push([current.left, level + 1]);
+      if (current.right) queue.push([current.right, level + 1]);
     }
 
-    results.push(level);
     return results;
   };
 
   /**
    * @param {node} root
    * @param {number} depth
-   * @return {number} Longest root to leaf path
+   * @return {number} Longest root to leaf path (1-indexed)
    */
   maxDepth(root = this.root, depth = 0) {
     if (!root) return 0;
@@ -148,5 +135,57 @@ class binaryTree {
     }
 
     return isValid(root.left, root.right);
+  }
+
+  /**
+   * @param {node} root
+   * @param {node} x
+   * @param {node} y
+   * @return {node} The lowest common ancestor of x and y
+   */
+  lowestCommonAncestor(root = this.root, x, y) {
+    if (!root || root === p || root === q) {
+      return root;
+    }
+
+    var left = lowestCommonAncestor(root.left, p, q);
+    var right = lowestCommonAncestor(root.right, p, q);
+
+    if (left && right) {
+      return root;
+    } else if (left) {
+      return left;
+    } else if (right) {
+      return right;
+    }
+  }
+
+  toString(root = this.root) {
+    if (!root) return '';
+
+    var results = '';
+    var level = 0;
+    var queue = [[root, level]];
+    var lastLevel = this.maxDepth() - 1;
+
+    while (queue.length > 0) {
+      var [current, level] = queue.shift();
+
+      if (current) {
+        if (level !== lastLevel) {
+          queue.push([current.left, level + 1]);
+          queue.push([current.right, level + 1]);
+        }
+        results += queue.length > 0 ? current.val + ',' : current.val;
+      } else {
+        results += 'null,'
+      }
+    }
+
+    return results;
+  }
+
+  fromString() {
+
   }
 }
