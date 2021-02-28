@@ -6,7 +6,7 @@ const subsetSum = require('./subsetSum.js');
  */
 var canPartition = function(nums) {
   var sum = 0;
-  for (num of nums) {
+  for (var num of nums) {
     sum += num;
   }
   if (sum % 2) return false;

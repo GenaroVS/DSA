@@ -8,13 +8,15 @@ const subsetSum = (nums, sum) => {
   var dp = Array(nums.length + 1).fill(null).map(() => Array(sum + 1));
 
   for (var i = 0; i <= nums.length; i++) { // i = number
-    for (var j = 0; j <= sum; j++) { // j = current sum
+    for (var j = 0; j <= sum; j++) { // j = local sum
       if (j === 0) {
         dp[i][j] = true;
-      } else if ((i === 0 && j > 0 ) || nums[i - 1] > j) {
+      } else if (i === 0) {
         dp[i][j] = false;
+      } else if (nums[i - 1] > j) {
+        dp[i][j] = dp[i - 1][j];
       } else {
-        dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]]
+        dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]];
         // omit number OR substract from sum and see if sub-problem works with new sum and previous number
       }
     }
