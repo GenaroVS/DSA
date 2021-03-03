@@ -36,7 +36,7 @@ const minSubsetSum = (nums) => {
   // If there is a subset from any nums (last row in dp) for any sum / 2,
   // then we find minimum difference of total sum with respective sum that subset forms.
   // y + x = sum
-  // y - x = (sum - x) - x = sum - 2x
+  // absolute difference = y - x = (sum - x) - x = sum - 2x
   for (var i = 0; i < dp[nums.length].length; i++) { // i = local sum
     if (dp[nums.length][i]) {
       min = Math.min(min, Math.abs(sum - (2 * i)));
