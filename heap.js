@@ -1,6 +1,6 @@
 class MaxHeap {
-  constructor(arr = null) {
-    this.storage = arr || [];
+  constructor(arr = []) {
+    this.storage = arr;
   }
 
   /**
@@ -22,10 +22,10 @@ class MaxHeap {
     var left = this.leftChild(i);
     var right = this.rightChild(i);
 
-    if (left < size && this.storage[left] > this.storage[largest]) {
+    if (left < size && this.storage[left].val > this.storage[largest].val) {
       largest = left;
     }
-    if (right < size && this.storage[right] > this.storage[largest]) {
+    if (right < size && this.storage[right].val > this.storage[largest].val) {
       largest = right;
     }
     if (largest !== i) {
@@ -40,7 +40,7 @@ class MaxHeap {
    */
   bubbleUp(i) {
     var parent = this.parentPos(i);
-    while (i > 0 && this.storage[parent] < this.storage[i]) {
+    while (i > 0 && this.storage[parent].val < this.storage[i].val) {
       this.swap(i, parent);
       i = parent;
       parent = this.parentPos(i);
@@ -76,12 +76,13 @@ class MaxHeap {
    * @return {void} Changes item after initally added
    */
   setItem(i, value) {
-    if (value < this.storage[i]) {
-      this.storage[i] = value
+    var node = typeof value !== 'object' ? {val: value} : value;
+    if (node.val < this.storage[i].val) {
+      this.storage[i] = node
       this.heapify(i);
-    } else if (value > this.storage[i]) {
-      this.storage[i] = value
-      this.bubbleUp(i, value);
+    } else if (node.val > this.storage[i].val) {
+      this.storage[i] = node
+      this.bubbleUp(i);
     }
   }
 
@@ -90,7 +91,8 @@ class MaxHeap {
    * @return {void} Initally adds item
    */
   insertItem(value) {
-    this.storage.push(value);
+    var node = typeof value !== 'object' ? {val: value} : value;
+    this.storage.push(node);
     this.bubbleUp(this.size() - 1);
   }
 
@@ -130,8 +132,8 @@ class MaxHeap {
 }
 
 class MinHeap {
-  constructor(arr = null) {
-    this.storage = arr || [];
+  constructor(arr = []) {
+    this.storage = arr;
   }
 
   /**
@@ -153,10 +155,10 @@ class MinHeap {
     var left = this.leftChild(i);
     var right = this.rightChild(i);
 
-    if (left < size && this.storage[left] < this.storage[largest]) {
+    if (left < size && this.storage[left].val < this.storage[smallest].val) {
       smallest = left;
     }
-    if (right < size && this.storage[right] < this.storage[smallest]) {
+    if (right < size && this.storage[right].val < this.storage[smallest].val) {
       smallest = right;
     }
     if (smallest !== i) {
@@ -171,7 +173,7 @@ class MinHeap {
    */
   bubbleUp(i) {
     var parent = this.parentPos(i);
-    while (i > 0 && this.storage[parent] > this.storage[i]) {
+    while (i > 0 && this.storage[parent].val > this.storage[i].val) {
       this.swap(i, parent);
       i = parent;
       parent = this.parentPos(i);
@@ -207,12 +209,13 @@ class MinHeap {
    * @return {void} Changes item after initally added
    */
   setItem(i, value) {
-    if (value > this.storage[i]) {
-      this.storage[i] = value
+    var node = typeof value !== 'object' ? {val: value} : value;
+    if (node.val > this.storage[i].val) {
+      this.storage[i] = node
       this.heapify(i);
-    } else if (value < this.storage[i]) {
-      this.storage[i] = value
-      this.bubbleUp(i, value);
+    } else if (node.val < this.storage[i].val) {
+      this.storage[i] = node
+      this.bubbleUp(i);
     }
   }
 
@@ -221,7 +224,8 @@ class MinHeap {
    * @return {void} Initally adds item
    */
   insertItem(value) {
-    this.storage.push(value);
+    var node = typeof value !== 'object' ? {val: value} : value;
+    this.storage.push(node);
     this.bubbleUp(this.size() - 1);
   }
 
