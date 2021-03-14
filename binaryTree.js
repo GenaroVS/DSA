@@ -185,7 +185,31 @@ class binaryTree {
     return results;
   }
 
-  fromString() {
+  fromString(data) {
+    if (data === '') return null;
+    var levelTraverse = data.split(',');
+    var i = 1;
+    var root = new TreeNode(levelTraverse[0]);
+    var queue = [root];
 
+    while (i < levelTraverse.length) {
+      var current = queue.shift();
+      var leftVal = levelTraverse[i];
+      var rightVal = levelTraverse[i + 1];
+
+      if (leftVal && leftVal !== 'null') {
+        current.left = new TreeNode(leftVal);
+      }
+
+      if (rightVal && rightVal !== 'null') {
+        current.right = new TreeNode(rightVal);
+      }
+
+      if (current.left) queue.push(current.left);
+      if (current.right) queue.push(current.right);
+      i += 2;
+    }
+
+    return root;
   }
 }

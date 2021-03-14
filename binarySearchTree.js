@@ -1,11 +1,22 @@
+/**
+ * @param {*} val
+ * @param {node} left
+ * @param {node} right
+ * @return {void}
+ */
+function Node(val, left, right) {
+  this.val = val;
+  this.left = left;
+  this.right = right;
+}
+
 class BST {
-  constructor(val = null, left = null, right = null) {
-    this.val = val;
-    this.left = left;
-    this.right = right
+  constructor(node = null) {
+    this.root = node;
+    this.size = node ? 1 : 0;
   }
 
-  search(root = this.root, val) {
+  search(val, root = this.root) {
     var node = root;
 
     while (node) {
@@ -23,30 +34,34 @@ class BST {
     return null;
   }
 
-  insert(root = this.root, val) {
-    if (!root) return new TreeNode(val);
+  insert(val, root = this.root) {
+    if (!root) {
+      this.root = new Node(val);
+      return root;
+    }
     var node = root;
 
     while (true) {
       if (val > node.val) {
         if (!node.right) {
-          node.right = new TreeNode(val);
+          node.right = new Node(val);
           break;
         }
         node = node.right;
       } else if (val < node.val) {
         if (!node.left) {
-          node.left = new TreeNode(val);
+          node.left = new Node(val);
           break;
         }
         node = node.left;
       }
     }
 
+    this.size++;
     return root;
   }
 
-  delete(root = this.root, key) {
+  delete(key, root = this.root) {
     if (!root) return null;
 
     if (key < root.val) {
@@ -65,10 +80,12 @@ class BST {
       root.right = deleteNode(root.right, temp.val);
     }
 
+    this.size--;
     return root;
   }
 
-  kthSmallest(root = this.root, k) {
+  kthSmallest(k, root = this.root) {
+    if (k > this.size) return null;
     var stack = [];
 
     while (true) {
@@ -81,6 +98,40 @@ class BST {
       k--;
       if (k === 0) return root.val;
       root = root.right;
+    }
+  }
+
+  kthLargest(k, root = this.root) {
+    if (k > this.size) return null;
+    var stack = [];
+
+    while (true) {
+      while (root) {
+        stack.push(root);
+        root = root.right;
+      }
+
+      root = stack.pop();
+      k--;
+      if (k === 0) return root.val;
+      root = root.left;
+    }
+  }
+
+  lowestCommonAncestor(p, q, root = this.root) {
+    if (!root || root === p || root === q) {
+      return root;
+    }
+
+    var left = lowestCommonAncestor(p, q, root.left);
+    var right = lowestCommonAncestor(p, q, root.right);
+
+    if (left && right) {
+      return root;
+    } else if (left) {
+      return left;
+    } else if (right) {
+      return right;
     }
   }
 }
