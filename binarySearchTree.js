@@ -67,4 +67,20 @@ class BST {
 
     return root;
   }
+
+  kthSmallest(root = this.root, k) {
+    var stack = [];
+
+    while (true) {
+      while (root) {
+        stack.push(root);
+        root = root.left;
+      }
+
+      root = stack.pop();
+      k--;
+      if (k === 0) return root.val;
+      root = root.right;
+    }
+  }
 }
