@@ -1,6 +1,6 @@
 class Trie {
   constructor() {
-    this.isWord = false;
+    this.word = false;
     this.wordCount = 0;
     this.children = {};
   }
@@ -18,7 +18,7 @@ class Trie {
       }
       node = node.children[char];
     }
-    node.isWord = true;
+    node.word = word;
     node.wordCount += 1;
   }
 
@@ -40,6 +40,22 @@ class Trie {
   }
 
   /**
+   * Grab all words from given subTrie
+   * @param {Trie} node
+   * @param {string[]} words
+   * @return {string[]}
+   */
+  getAllWords(node = this, words = []) {
+    if (node.word) words.push(node.word);
+
+    for (var char in node.children) {
+      words = getAllWords(node.children[char], words);
+    }
+
+    return words;
+  }
+
+  /**
    * @param {string} word
    * @return {boolean} Whether word is in Trie
    */
@@ -50,7 +66,7 @@ class Trie {
       if (!node.children[char]) return false;
       node = node.children[char];
     }
-    return node.isWord;
+    return node.word ? true : false;
   }
 
   /**
@@ -92,7 +108,26 @@ class Trie {
 
     return count;
   }
+
+  /**
+   * Grab all words with same prefix
+   * @param {string} prefix
+   * @return {string[]}
+   */
+  autoComplete(prefix) {
+    var node = this;
+    for (var char of prefix) {
+      if (!node.children[char]) {
+        return [];
+      }
+      node = node.children[char];
+    }
+
+    return this.getAllWords(node);
+  }
 }
+
+module.exports = Trie
 
 
 
