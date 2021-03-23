@@ -16,6 +16,12 @@ class BST {
     this.size = node ? 1 : 0;
   }
 
+  /**
+   * Find and return 'val' in BST
+   * @param {number} val
+   * @param {node} root
+   * @return {node | null}
+   */
   search(val, root = this.root) {
     var node = root;
 
@@ -34,6 +40,12 @@ class BST {
     return null;
   }
 
+  /**
+   * Insert 'val' in BST and return root node.
+   * @param {number} val
+   * @param {node} root
+   * @return {node}
+   */
   insert(val, root = this.root) {
     if (!root) {
       this.root = new Node(val);
@@ -61,6 +73,12 @@ class BST {
     return root;
   }
 
+  /**
+   * Delete 'key' in BST and return root node.
+   * @param {number} key
+   * @param {node} root
+   * @return {node}
+   */
   delete(key, root = this.root) {
     if (!root) return null;
 
@@ -75,15 +93,21 @@ class BST {
         return root.left;
       }
 
-      var temp = minVal(root.right);
-      root.val = temp.val
-      root.right = deleteNode(root.right, temp.val);
+      var temp = kthSmallest(1, root.right);
+      root.val = temp
+      root.right = deleteNode(root.right, temp);
     }
 
     this.size--;
     return root;
   }
 
+  /**
+   * Return value of kth smallest node
+   * @param {number} k
+   * @param {node} root
+   * @return {number}
+   */
   kthSmallest(k, root = this.root) {
     if (k > this.size) return null;
     var stack = [];
@@ -101,6 +125,12 @@ class BST {
     }
   }
 
+  /**
+   * Return value of kth largest node
+   * @param {number} k
+   * @param {node} root
+   * @return {number}
+   */
   kthLargest(k, root = this.root) {
     if (k > this.size) return null;
     var stack = [];
@@ -118,6 +148,13 @@ class BST {
     }
   }
 
+  /**
+   * Find and return LCG node of p and q nodes
+   * @param {node} p
+   * @param {node} q
+   * @param {node} root
+   * @return {node}
+   */
   lowestCommonAncestor(p, q, root = this.root) {
     if (!root || root === p || root === q) {
       return root;

@@ -160,6 +160,11 @@ class binaryTree {
     }
   }
 
+  /**
+   * Deserialized a binary tree into string format
+   * @param {node} root
+   * @return {string}
+   */
   toString(root = this.root) {
     if (!root) return '';
 
@@ -185,6 +190,11 @@ class binaryTree {
     return results;
   }
 
+  /**
+   * Serialize string format into binary tree
+   * @param {string} data
+   * @return {node}
+   */
   fromString(data) {
     if (data === '') return null;
     var levelTraverse = data.split(',');
