@@ -27,7 +27,7 @@ function getAllWords(node, words = []) {
 
   return words;
 }
-
+debugger;
 console.log(autoComplete('de', ['dog','deer','deal'])); // deer, deal
 console.log(autoComplete('do', ['dog','deer','deal'])); // dog
 console.log(autoComplete('d', ['dog','deer','deal'])) // dog, deer, deal
