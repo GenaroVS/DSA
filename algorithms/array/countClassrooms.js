@@ -1,6 +1,6 @@
 // Given an array of time intervals (start, end) for classroom
 // lectures (possibly overlapping), find the minimum number of rooms required.
-// # of classrooms == min # of overlaps
+// # of classrooms == max # of overlaps
 
 /**
  * @param {number[][]} intervals
@@ -8,33 +8,33 @@
  */
 const countClassrooms = (intervals) => {
   if (intervals.length === 0) return 0;
-  var count = 0;
-  var classRooms = {};
 
-  for (var i = 0; i < intervals.length; i++) {
-    var current = intervals[i];
-    var canFit = false;
-    for (var room in classRooms) {
-      canFit = true;
-      for (var interval of classRooms[room]) {
-        if ((current[0] > interval[0] && current[0] < interval[1]) ||
-          (current[1] > interval[0] && current[1] < interval[1])) {
-          canFit = false;
-          break;
-        }
-      }
-      if (canFit) {
-        classRooms[room].push(current);
-        break;
-      }
-    }
-    if (!canFit) {
-      count += 1;
-      classRooms[count] = [intervals[i]];
+  var starts = intervals
+    .map(([start, end]) => {
+      return start;
+    })
+    .sort((a, b) => a - b);
+
+  var ends = intervals
+    .map(([start, end]) => {
+      return end;
+    })
+    .sort((a, b) => a - b);
+
+  var max = curOverLap = i = j = 0;
+
+  while (i < intervals.length && j < intervals.length) {
+    if (starts[i] < ends[j]) {
+      curOverLap += 1;
+      max = Math.max(max, curOverLap);
+      i += 1;
+    } else {
+      curOverLap -= 1;
+      j += 1;
     }
   }
 
-  return count;
+  return max;
 };
 
 
