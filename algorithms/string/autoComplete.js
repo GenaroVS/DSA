@@ -1,4 +1,4 @@
-const Trie = require('../trie.js');
+const Trie = require('../../trie.js');
 
 const autoComplete = (prefix, words) => {
   var dict = new Trie();

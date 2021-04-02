@@ -1,6 +1,6 @@
 /* Given a dictionary of words and a string made up of those words (no spaces), return whether or not the string forms a sentence with the given dictionary. */
 
-const Trie = require('../trie.js');
+const Trie = require('../../trie.js');
 
 /**
  *
