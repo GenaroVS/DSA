@@ -6,12 +6,14 @@
  * @param {number} high
  * @return {void}
  */
-var quickSort = (arr, low, high) => {
+var quickSort = (arr, low = 0, high = arr.length - 1) => {
   if (low < high) {
     var pivot = partition(arr, low, high);
     quickSort(arr, low, pivot - 1);
     quickSort(arr, pivot + 1, high);
   }
+
+  return arr;
 };
 
 var swap = (arr, idx1, idx2) => {
@@ -27,7 +29,7 @@ var partition = (arr, low, high) => {
 
   for (var j = low; j < high; j++) {
     if (arr[j] < pivot) {
-      i++;
+      i += 1;
       swap(arr, i, j);
     }
   }
@@ -36,5 +38,5 @@ var partition = (arr, low, high) => {
 };
 
 var arr = [5,1,4,3,2];
-quickSort(arr, 0, arr.length - 1);
+quickSort(arr);
 console.log(arr);

@@ -29,7 +29,7 @@ var merge = function(arr, start, mid, end) {
     j++;
   }
 
-  // copy temp to original interval
+  // copy merged to original interval
   for(i = start; i <= end; i++) {
     arr[i] = merged[i - start]
   }
