@@ -2,6 +2,7 @@ class LinkedList {
   constructor(head, tail) {
     this.head = head;
     this.tail = tail;
+    this.length = 0;
   }
 
   /**
@@ -23,6 +24,7 @@ class LinkedList {
     if (!this.tail) {
       this.tail = node;
     }
+    this.length += 1;
   }
 
   /**
@@ -31,13 +33,82 @@ class LinkedList {
    */
   push(val) {
     var node = this.createNode(val, null);
-    if (this.head === null) {
+    if (!this.head) {
         this.head = node;
         this.tail = node;
     } else {
       this.tail.next = node;
       this.tail = node;
     }
+    this.length += 1;
+  }
+
+  /**
+  * Remove first node
+  * @return {node}
+  */
+  shift() {
+    var temp = this.head;
+    if (!this.head) return null;
+    else if (!this.head.next) {
+      this.head = null;
+      this.tail = null;
+      this.length -= 1;
+      return temp;
+    }
+
+    this.head = this.head.next;
+    this.length -= 1;
+    return temp;
+  }
+
+  /**
+  * Remove last node
+  * @return {node}
+  */
+  pop() {
+    if (!this.head || !this.head.next) {
+      return this.shift();
+    }
+
+    var cur = head;
+    while (cur.next.next) {
+      cur = cur.next;
+    }
+
+    var oldTail = cur.next;
+    cur.next = null;
+    this.tail = cur;
+    this.length -= 1;
+    return oldTail;
+  }
+
+  /**
+   * @param {number} i
+   * @return {node}
+   */
+  get(i) {
+    if (i < 0 || i >= this.length) return false;
+    var cur = this.head;
+
+    while (cur) {
+      if (i === 0) return cur;
+      cur = cur.next;
+      i -= 1;
+    }
+  }
+
+  /**
+   *
+   * @param {number} i
+   * @param {*} val
+   * @returns {boolean}
+   */
+  set(i, val) {
+    var node = this.get(i);
+    if (!node) return false;
+    node.val = val;
+    return false;
   }
 
   /**
@@ -45,51 +116,33 @@ class LinkedList {
    * @param {*} val
    * @return {void}
    */
-  addAtIndex(index, val) {
-    var current = this.head;
-    var node = this.createNode(val, null);
+  addAt(index, val) {
+    if (index < 0 || index > this.length) return false;
+    if (index === 0) this.unshift(val);
+    else if (index === this.length) this.push(val);
 
-    if (index === 0) {
-      this.addAtHead(val);
-      return;
-    }
-    while (current) {
-      if (index === 1) {
-        if (this.tail === current) {
-          this.tail = node;
-        }
-        node.next = current.next;
-        current.next = node;
-        break;
-      }
-      current = current.next
-      index--;
-    }
+    var prev = this.get(index - 1);
+    var node = this.createNode(val, null);
+    node.next = prev.next;
+    prev.next = node;
+    this.length += 1;
+    return true;
   }
 
   /**
    * @param {number} index (0-based)
    * @return {void}
    */
-  deleteAtIndex(index) {
-    if (!this.head) return null;
-    if (index === 0) {
-      this.head = this.head.next;
-      return;
-    }
+  deleteAt(index) {
+    if (index < 0 || index >= this.length) return false;
+    if (index === 0) return this.shift();
+    else if (index === this.length - 1) return this.pop();
 
-    var current = this.head;
-    while (current.next) {
-      if (index === 1) {
-        if (this.tail === current.next) {
-          this.tail = current;
-        }
-        current.next = current.next.next;
-        break;
-      }
-      current = current.next;
-      index--;
-    }
+    var prev = this.get(index - 1);
+    var removed = prev.next;
+    prev.next = removed.next;
+    this.length -= 1;
+    return removed;
   }
 
   /**
@@ -102,6 +155,7 @@ class LinkedList {
 
     while (current.next) {
       while (current.next && current.next.val === val) {
+        this.length -= 1;
         current.next = current.next.next;
       }
       if (current.next) {
@@ -110,14 +164,14 @@ class LinkedList {
     }
 
     if (this.head.val === val) {
-      this.head = this.head.next;
+      this.shift();
     }
 
     return this.head;
   }
 
   /**
-   * @return {boolean}
+   * @return {boolean | node} If true, returns node that starts loop
    */
   hasCycle() {
     if (!this.head || !this.head.next) return false;
@@ -166,7 +220,7 @@ class LinkedList {
         nodeB = nodeB.next;
       }
       if (lastB && lastA && lastB !== lastA) {
-        return null;
+        return false;
       }
     }
   }
@@ -213,6 +267,7 @@ class LinkedList {
       node3 = node3.next;
     }
 
+    this.length += l2.length;
     return merged;
   }
 
@@ -273,6 +328,7 @@ class LinkedList {
       current = current.next;
     }
 
+    this.length = arr.length;
     return this.head;
   }
 
