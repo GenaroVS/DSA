@@ -175,19 +175,18 @@ class DoublyLinkedList {
     return true;
   }
 
+  /**
+   * @returns {node}
+   */
   reverse() {
     var current = this.head;
     this.tail = this.head;
     while (current) {
-      if (!current.next) {
-        this.head = current;
-      }
+      if (!current.next) this.head = current;
       var temp = current;
-      var prev = temp.prev;
-      var next = temp.next;
-      temp.prev = next;
+      temp.prev = temp.next;
       current = current.next;
-      temp.next = prev;
+      temp.next = temp.prev;
     }
 
     return this.head;
