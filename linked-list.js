@@ -116,12 +116,12 @@ class LinkedList {
    * @param {*} val
    * @return {void}
    */
-  addAt(index, val) {
-    if (index < 0 || index > this.length) return false;
-    if (index === 0) this.unshift(val);
-    else if (index === this.length) this.push(val);
+  addAt(i, val) {
+    if (i < 0 || i > this.length) return false;
+    if (i === 0) this.unshift(val);
+    else if (i === this.length) this.push(val);
 
-    var prev = this.get(index - 1);
+    var prev = this.get(i - 1);
     var node = this.createNode(val, null);
     node.next = prev.next;
     prev.next = node;

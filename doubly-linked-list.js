@@ -138,6 +138,60 @@ class DoublyLinkedList {
     node.val = val;
     return true;
   }
+
+  /**
+   * @param {number} i
+   * @return {this}
+   */
+  deleteAt(i) {
+    if (i < 0 || i >= this.length) return false;
+    if (i === 0) return this.shift();
+    else if (i === this.length - 1) return this.pop();
+
+    var prev = this.get(i - 1);
+    var removed = prev.next;
+    prev.next = removed.next;
+    prev.next.prev = prev;
+    this.length -= 1;
+    return removed;
+  }
+
+  /**
+   * @param {number} i
+   * @return {this}
+   */
+  addAt(i) {
+    if (i < 0 || i > this.length) return false;
+    if (i === 0) this.unshift(val);
+    else if (i === this.length) this.push(val);
+
+    var prev = this.get(i - 1);
+    var node = this.createNode(val, null);
+    node.next = prev.next;
+    node.prev = prev;
+    prev.next = node;
+    node.next.prev = node;
+    this.length += 1;
+    return true;
+  }
+
+  reverse() {
+    var current = this.head;
+    this.tail = this.head;
+    while (current) {
+      if (!current.next) {
+        this.head = current;
+      }
+      var temp = current;
+      var prev = temp.prev;
+      var next = temp.next;
+      temp.prev = next;
+      current = current.next;
+      temp.next = prev;
+    }
+
+    return this.head;
+  }
 }
 
 module.exports = DoublyLinkedList;
