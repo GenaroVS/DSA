@@ -65,12 +65,11 @@ class binaryTree {
    */
   levelOrder() {
     if (!this.root) return [];
-
     var results = [];
     var level = 0;
     var queue = [[this.root, level]];
 
-    while (queue.length > 0) {
+    while (queue.length) {
       var [current, level] = queue.shift();
 
       if (results.length <= level) {
