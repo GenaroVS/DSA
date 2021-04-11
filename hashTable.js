@@ -52,6 +52,9 @@ class HashTable {
     return null;
   }
 
+  /**
+   * @param {string} key
+   */
   delete(key) {
     var idx = this.hash(key);
 
@@ -70,6 +73,9 @@ class HashTable {
     }
   }
 
+  /**
+   * @param {number} x Multiplier of resizing
+   */
   resize(x) {
     var oldMap = this.map;
     this.limit = Math.floor(this.limit * x);
@@ -83,6 +89,9 @@ class HashTable {
     });
   }
 
+  /**
+   * @returns {string[]}
+   */
   keys() {
     var keys = [];
 
@@ -95,6 +104,9 @@ class HashTable {
     return keys;
   }
 
+  /**
+   * @returns {any[]}
+   */
   values() {
     var values = new Set();
     this.map.forEach(bucket => {
@@ -106,6 +118,10 @@ class HashTable {
     return Array.from(values);
   }
 
+  /**
+   * @param {string} key
+   * @returns {number}
+   */
   hash(key) {
     var hash = 0;
 

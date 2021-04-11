@@ -39,7 +39,8 @@ class Queue {
     if (this.size === 1) {
       this.first = null;
       this.last = null;
-      return temp;
+      this.size -= 1;
+      return temp.val;
     }
 
     this.first = this.first.next;

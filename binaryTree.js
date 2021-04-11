@@ -1,3 +1,5 @@
+const Queue = require('./queue.js');
+
 /**
  * @param {*} val
  * @param {node} left
@@ -67,18 +69,19 @@ class binaryTree {
     if (!this.root) return [];
     var results = [];
     var level = 0;
-    var queue = [[this.root, level]];
+    var queue = new Queue();
+    queue.enqueue([this.root, level]);
 
-    while (queue.length) {
-      var [current, level] = queue.shift();
+    while (queue.size) {
+      var [current, level] = queue.dequeque();
 
       if (results.length <= level) {
         results.push([]);
       }
       results[level].push(current.val);
 
-      if (current.left) queue.push([current.left, level + 1]);
-      if (current.right) queue.push([current.right, level + 1]);
+      if (current.left) queue.enqueue([current.left, level + 1]);
+      if (current.right) queue.enqueue([current.right, level + 1]);
     }
 
     return results;
