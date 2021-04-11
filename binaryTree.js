@@ -89,11 +89,11 @@ class binaryTree {
    * @param {number} depth
    * @return {number} Longest root to leaf path (1-indexed)
    */
-  maxDepth(root = this.root, depth = 0) {
+  maxDepth(root = this.root) {
     if (!root) return 0;
 
-    var leftDepth = maxDepth(root.left, depth);
-    var rightDepth = maxDepth(root.right, depth);
+    var leftDepth = maxDepth(root.left);
+    var rightDepth = maxDepth(root.right);
     return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
   }
 
