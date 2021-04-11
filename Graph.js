@@ -1,4 +1,4 @@
-const Queue = require('./queue.js');
+const Queue = require('./Queue.js');
 
 class Graph {
   /**
