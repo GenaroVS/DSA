@@ -42,8 +42,7 @@ class MaxHeap {
     var parent = this.parentPos(i);
     while (i > 0 && this.storage[parent].val < this.storage[i].val) {
       this.swap(i, parent);
-      i = parent;
-      parent = this.parentPos(i);
+      parent = this.parentPos(parent);
     }
   }
 
