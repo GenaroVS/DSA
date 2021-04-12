@@ -2,7 +2,7 @@ const Queue = require('./Queue.js');
 
 class Graph {
   /**
-   * @param {string} type UDG | DG | WG
+   * @param {string} type UDG | DG
    */
   constructor(type = 'UDG') {
     this.adjacencyList = {};
@@ -16,12 +16,18 @@ class Graph {
   }
 
   removeVertex(vertex) {
-    if (this.adjacencyList[vertex]) {
+    if (this.adjacencyList[vertex] && this.type === 'UDG') {
       this.adjacencyList[vertex].forEach(edge => {
         this.adjacencyList[edge] = this.adjacencyList[edge].filter(val => {
           return val !== vertex;
         });
       });
+    } else if (this.adjacencyList[vertex] && this.type === 'DG') {
+      for (var v in this.adjacencyList) {
+        this.adjacencyList[v] = this.adjacencyList[v].filter(val => {
+          return val !== vertex;
+        });
+      }
     }
     delete this.adjacencyList[vertex];
   }
