@@ -1,3 +1,5 @@
+const { MinHeap } = require('./Heap.js');
+
 class WeightedGraph {
   constructor() {
     this.adjacencyList = {};
@@ -11,10 +13,11 @@ class WeightedGraph {
 
   removeVertex(vertex) {
     if (this.adjacencyList[vertex]) {
-      this.adjacencyList[vertex].forEach(({ val }) => {
-        this.adjacencyList[val] = this.adjacencyList[val].filter(edge => {
-          return edge.val !== vertex;
-        });
+      this.adjacencyList[vertex].forEach(neighbor => {
+        this.adjacencyList[neighbor.vertex] = this.adjacencyList[neighbor.vertex]
+          .filter(neighbor => {
+            return neighbor.vertex !== vertex;
+          });
       });
     }
     delete this.adjacencyList[vertex];
@@ -30,12 +33,14 @@ class WeightedGraph {
   addEdge(v1, v2, weight) {
     if (!this.adjacencyList[v1] || !this.adjacencyList[v2]) return false;
 
-    this.adjacencyList[v1].push({val:v2, weight})
-    this.adjacencyList[v2].push({val:v1, weight})
+    this.adjacencyList[v1].push({vertex:v2, weight})
+    this.adjacencyList[v2].push({vertex:v1, weight})
   }
 
   /**
    * If directional graph, points from v1, to v2
+   * O(ELog(V)) Time
+   * O(V) Space
    * @param {any} v1
    * @param {any} v2
    * @returns {void}
@@ -49,7 +54,71 @@ class WeightedGraph {
       return edge.val !== v2;
     })
   }
+
+  shortestPath(start, end) { // Dijkstra's Algorithm
+    let minDists = {};
+    let previous = {};
+    let path = [];
+    let distQueue = new MinHeap();
+
+    for (var vertex in this.adjacencyList) {
+      if (start !== vertex) {
+        minDists[vertex] = Infinity;
+        distQueue.insertItem({val: Infinity, vertex});
+      }
+      previous[vertex] = null;
+    }
+    minDists[start] = 0;
+    distQueue.insertItem({val: 0, vertex: start})
+
+    while (distQueue.size()) {
+      var vertex = distQueue.removeMin().vertex;
+      if (vertex === end) {
+        while (vertex) {
+          path.push(vertex);
+          vertex = previous[vertex];
+        }
+        break;
+      };
+
+      if (vertex || distances[vertex] !== Infinity) {
+        this.adjacencyList[vertex].forEach(neighbor => {
+          var dist = minDists[vertex] + neighbor.weight;
+          if (dist < minDists[neighbor.vertex]) {
+            minDists[neighbor.vertex] = dist;
+            previous[neighbor.vertex] = vertex;
+            distQueue.insertItem({val: dist, vertex: neighbor.vertex})
+          }
+        });
+      }
+    }
+
+    return path.reverse();
+  }
+};
+
+function WGTest() {
+  var graph = new WeightedGraph();
+  graph.addVertex('A');
+  graph.addVertex('B');
+  graph.addVertex('C');
+  graph.addVertex('D');
+  graph.addVertex('E');
+  graph.addVertex('F');
+
+  graph.addEdge('A','B',2);
+  graph.addEdge('A','C',1);
+  graph.addEdge('B','E',2);
+  graph.addEdge('C','F',1);
+  graph.addEdge('C','D',3);
+  graph.addEdge('D','E',2);
+  graph.addEdge('D','F',2);
+  graph.addEdge('F','E',3);
+
+  console.log(graph.shortestPath('A','E'));
 }
+
+WGTest();
 
 
 

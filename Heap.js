@@ -71,7 +71,7 @@ class MaxHeap {
 
   /**
    * @param {number} i
-   * @param {number} value
+   * @param {number | object} value
    * @return {void} Changes item after initally added
    */
   setItem(i, value) {
@@ -86,7 +86,7 @@ class MaxHeap {
   }
 
   /**
-   * @param {number} value
+   * @param {number | object} value
    * @return {void} Initally adds item
    */
   insertItem(value) {
