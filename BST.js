@@ -4,10 +4,12 @@
  * @param {node} right
  * @return {void}
  */
-function Node(val, left, right) {
-  this.val = val;
-  this.left = left;
-  this.right = right;
+class Node {
+  constructor (val, left, right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
 }
 
 class BST {
@@ -170,5 +172,39 @@ class BST {
     } else if (right) {
       return right;
     }
+  }
+
+  /**
+   * Convert and balance BST to minimum possible height
+   * O(N) Time
+   * @return {node}
+   */
+  balance() {
+    var sortedArr = [];
+
+    (function traverse(root) {
+      if (!root) return;
+      traverse(root.left);
+      sortedArr.push(root.val);
+      traverse(root.right);
+    })(this.root)
+
+    return this.fromArray(sortedArr);
+  }
+
+  /**
+   * Do recursive 'binary search' to create balanced BST.
+   * O(N) Time
+   * @param {number[]} arr
+   * @return {node}
+   */
+  fromArray(arr, left = 0, right = arr.length - 1) {
+    if (left > right) return null;
+    var mid = left + Math.floor((right - left) / 2);
+
+    var root = new Node(arr[mid]);
+    root.left = fromArray(arr, left, mid - 1);
+    root.right = fromArray(arr, mid + 1, right);
+    return root;
   }
 }

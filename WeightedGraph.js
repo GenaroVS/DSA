@@ -3,11 +3,13 @@ const { MinHeap } = require('./Heap.js');
 class WeightedGraph {
   constructor() {
     this.adjacencyList = {};
+    this.vertices = 0;
   }
 
   addVertex(vertex) {
     if (!this.adjacencyList[vertex]) {
       this.adjacencyList[vertex] = [];
+      this.vertices += 1;
     }
   }
 
@@ -21,6 +23,7 @@ class WeightedGraph {
       });
     }
     delete this.adjacencyList[vertex];
+    this.vertices -= 1;
   }
 
   /**
@@ -52,9 +55,14 @@ class WeightedGraph {
     });
     this.adjacencyList[v1] = this.adjacencyList[v1].filter(edge => {
       return edge.val !== v2;
-    })
+    });
   }
 
+  /**
+   * @param {any} start
+   * @param {any} end
+   * @returns {any[]} Path of vertices
+   */
   shortestPath(start, end) { // Dijkstra's Algorithm
     let minDists = {};
     let previous = {};
@@ -92,8 +100,14 @@ class WeightedGraph {
         });
       }
     }
-
     return path.reverse();
+  }
+
+  /**
+   * @return {any[]} path making minimum spanning tree
+   */
+  findMST(start) { // Prim's OR Kruskal's Algorithm
+
   }
 };
 
