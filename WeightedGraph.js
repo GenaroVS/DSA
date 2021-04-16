@@ -59,11 +59,12 @@ class WeightedGraph {
   }
 
   /**
+   * Dijkstra's Algorithm
    * @param {any} start
    * @param {any} end
    * @returns {any[]} Path of vertices
    */
-  shortestPath(start, end) { // Dijkstra's Algorithm
+  shortestPath(start, end) {
     let minDists = {};
     let previous = {};
     let path = [];

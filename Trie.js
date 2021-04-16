@@ -39,17 +39,36 @@ class Trie {
     node.baseTenNum = num;
   }
 
+  remove(word, i = 0, canDelete = true) {
+    if (!this) return;
+    else if (this.word === word) {
+      this.word = false;
+      return true;
+    }
+
+    canDelete = this.children[word[i]].remove(word, i + 1, canDelete);
+
+    if (!canDelete) return false;
+
+    if (this.word) return false; // reached end of unique chars for word
+    var count = 0;
+    for (var char in this.children) count += 1; // Check if tail
+    if (count === 1 && canDelete) node.children = {};
+
+    return true;
+  }
+
   /**
    * Grab all words from given subTrie
    * @param {Trie} node
    * @param {string[]} words
    * @return {string[]}
    */
-  getAllWords(node = this, words = []) {
+  getWords(node = this, words = []) {
     if (node.word) words.push(node.word);
 
     for (var char in node.children) {
-      words = getAllWords(node.children[char], words);
+      words = getWords(node.children[char], words);
     }
 
     return words;
@@ -123,7 +142,7 @@ class Trie {
       node = node.children[char];
     }
 
-    return this.getAllWords(node);
+    return this.getWords(node);
   }
 }
 
