@@ -276,37 +276,27 @@ class LinkedList {
    * @return {head}
    */
   rotate(k) {
-    if (!this.head) {
-      return null;
+    k < 0 ?
+      k = this.length - (Math.abs(k) % this.length) :
+      k = k % this.length;
+
+    if (this.length === 1 || k === 0) return this.head;
+    else if (!this.length) return null;
+
+    var cur = this.head;
+    while (k > 1) { // stop at prev (new tail) of new head
+        cur = cur.next;
+        k -= 1;
     }
 
-    // Find length of LL
-    var len = 0;
-    var node = this.head;
-    while (node) {
-      len++;
-      node = node.next;
-    }
-    if (k % len === 0) return this.head;
+    var newHead = cur.next;
+    cur.next = null;
+    this.tail = cur;
+    cur = newHead;
 
-    // separate into two segments
-    k = k % len;
-    node = this.head;
-    var pivotIdx = len - k;
-    var newHead = this.head;
-    while (node.next) {
-      if (pivotIdx === 1) {
-        var temp = node.next;
-        node.next = null;
-        node = temp;
-        newHead = temp;
-      } else {
-        node = node.next
-      }
-      pivotIdx--;
-    }
-    // Connect right segement to start of left segment and return head.
-    node.next = this.head;
+    // Reach end and connect old tail with old head
+    while (cur.next) cur = cur.next;
+    cur.next = this.head;
     this.head = newHead;
     return this.head;
   }
