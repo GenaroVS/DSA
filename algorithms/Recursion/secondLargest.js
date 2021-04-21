@@ -5,9 +5,9 @@ const getSecondLargest = (root, n = 0) => {
   var node = null;
 
   function traverse(root) {
-    if (!root || n >= 2) return;
+    if (!root || count >= 2) return;
 
-    getSecondLargest(root.right, n);
+    getSecondLargest(root.right);
 
     count += 1;
 
@@ -16,9 +16,9 @@ const getSecondLargest = (root, n = 0) => {
       return;
     };
 
-    return getSecondLargest(root.left, n);
+    return getSecondLargest(root.left);
   };
 
   traverse();
-  return count;
+  return node;
 }
