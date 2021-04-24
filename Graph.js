@@ -7,11 +7,13 @@ class Graph {
   constructor(type = 'UDG') {
     this.adjacencyList = {};
     this.type = type;
+    this.vertices = 0;
   }
 
   addVertex(vertex) {
     if (!this.adjacencyList[vertex]) {
       this.adjacencyList[vertex] = [];
+      this.vertices += 1;
     }
   }
 
@@ -30,6 +32,7 @@ class Graph {
       }
     }
     delete this.adjacencyList[vertex];
+    this.vertices -= 1;
   }
 
   /**
@@ -137,6 +140,42 @@ class Graph {
     }
 
     return results;
+  }
+
+  /**
+   * Only works for directed graphs
+   * @returns {boolean}
+   */
+  hasCycle() {
+    if (this.type === 'UDG') return null;
+
+    function hasCycleUtil(adj, visited, vertex) {
+      if (visited[vertex]) return true;
+
+      visited[vertex] = true;
+
+      for (var i = 0; i < adj[vertex].length; i++) {
+        if (hasCycleUtil(adj, visited, adj[vertex][i])) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    var visited = Array(this.vertices).fill(false);
+
+    for (var i = 0; i < this.vertices; i++) {
+      visited[i] = true;
+      for (var j = 0; j < this.adjacencyList[i].length; j++) {
+        if (this.hasCycleUtil(this.adjacencyList, visited, adj[i][j])) {
+          return true;
+        }
+      }
+      visited[i] = false;
+    }
+
+    return false;
   }
 }
 

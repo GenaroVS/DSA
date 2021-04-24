@@ -219,7 +219,7 @@ class MinHeap {
   }
 
   /**
-   * @param {number} value
+   * @param {number | object} value
    * @return {void} Initally adds item
    */
   insertItem(value) {

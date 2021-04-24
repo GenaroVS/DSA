@@ -90,7 +90,7 @@ class WeightedGraph {
         break;
       };
 
-      if (vertex || distances[vertex] !== Infinity) {
+      if (vertex || minDists[vertex] !== Infinity) {
         this.adjacencyList[vertex].forEach(neighbor => {
           var dist = minDists[vertex] + neighbor.weight;
           if (dist < minDists[neighbor.vertex]) {
@@ -105,9 +105,10 @@ class WeightedGraph {
   }
 
   /**
-   * @return {any[]} path making minimum spanning tree
+   * Prim's greedy algorithm
+   * @return {any[]} Minimum spanning tree
    */
-  findMST(start) { // Prim's OR Kruskal's Algorithm
+  findMST(start) { // Prim's
 
   }
 };
@@ -133,7 +134,9 @@ function WGTest() {
   console.log(graph.shortestPath('A','E'));
 }
 
-WGTest();
+//WGTest();
+
+module.exports = WeightedGraph;
 
 
 
