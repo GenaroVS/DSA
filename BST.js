@@ -194,6 +194,7 @@ class BST {
 
   /**
    * Do recursive 'binary search' to create balanced BST.
+   * Array must be inorder traversed
    * O(N) Time
    * @param {number[]} arr
    * @return {node}

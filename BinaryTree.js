@@ -6,10 +6,12 @@ const Queue = require('./queue.js');
  * @param {node} right
  * @return {void}
  */
-function Node(val, left, right) {
-  this.val = val;
-  this.left = left;
-  this.right = right;
+class Node {
+  constructor(val, left, right) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
+  }
 }
 
 class binaryTree {
@@ -163,65 +165,21 @@ class binaryTree {
   }
 
   /**
-   * Deserialized a binary tree into string format
-   * @param {node} root
-   * @return {string}
+   * Create tree from inorder and preorder arrays
+   * @param {number[]} inorder
+   * @param {number[]} preorder
+   * @return {root}
    */
-  toString(root = this.root) {
-    if (!root) return '';
-
-    var results = '';
-    var level = 0;
-    var queue = [[root, level]];
-    var lastLevel = this.maxDepth() - 1;
-
-    while (queue.length > 0) {
-      var [current, level] = queue.shift();
-
-      if (current) {
-        if (level !== lastLevel) {
-          queue.push([current.left, level + 1]);
-          queue.push([current.right, level + 1]);
-        }
-        results += queue.length > 0 ? current.val + ',' : current.val;
-      } else {
-        results += 'null,'
-      }
+  fromArray(inorder, preorder) {
+    if (!inorder || !preorder) return null;
+    if (inorder === 1 && preorder === 1) {
+      return preorder[0];
     }
 
-    return results;
-  }
-
-  /**
-   * Serialize string format into binary tree
-   * @param {string} data
-   * @return {node}
-   */
-  fromString(data) {
-    if (data === '') return null;
-    var levelTraverse = data.split(',');
-    var i = 1;
-    var root = new TreeNode(levelTraverse[0]);
-    var queue = [root];
-
-    while (i < levelTraverse.length) {
-      var current = queue.shift();
-      var leftVal = levelTraverse[i];
-      var rightVal = levelTraverse[i + 1];
-
-      if (leftVal && leftVal !== 'null') {
-        current.left = new TreeNode(leftVal);
-      }
-
-      if (rightVal && rightVal !== 'null') {
-        current.right = new TreeNode(rightVal);
-      }
-
-      if (current.left) queue.push(current.left);
-      if (current.right) queue.push(current.right);
-      i += 2;
-    }
-
+    var root = new Node(preorder[0]);
+    var rootIdx = inorder.indexOf(preorder[0]);
+    root.left = fromArray(inorder.slice(0, rootIdx), preorder.slice(1, 1 + rootIdx));
+    root.right = fromArray(inorder.slice(rootIdx + 1), preorder.slice(1 + rootIdx));
     return root;
   }
 }
