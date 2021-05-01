@@ -70,18 +70,6 @@ class BST {
         node = node.left;
       } else {
         break;
-        /*
-        if (!node.left) {
-          node.left = new Node(val);
-          break;
-        }
-        node = node.left;
-        while (node.right) {
-          node = node.right;
-        }
-
-        node.right = new Node(val);
-        break; */
       }
     }
 
@@ -116,6 +104,56 @@ class BST {
 
     this.size--;
     return root;
+  }
+
+  /**
+   * Returns the next smallest value from number k
+   * @param {number} k
+   * @return {number}
+   */
+  floor(val) {
+    if (this.size <= 1) return null;
+
+    var node = this.root;
+    var floor = null;
+
+    while (node) {
+      if (val === node.val) {
+        return node.val;
+      } else if (val > node.val) {
+        floor = node.val;
+        node = node.right;
+      } else {
+        root = root.left;
+      }
+    }
+
+    return floor;
+  }
+
+  /**
+   * Return the next largest value from number k
+   * @param {number} k
+   * @return {number}
+   */
+  ceiling(val) {
+    if (this.size <= 1) return null;
+
+    var node = this.root;
+    var ceil = null;
+
+    while (node) {
+      if (val === node.val) {
+        return node.val;
+      } else if (val > node.val) {
+        node = node.right;
+      } else {
+        ceil = node.val;
+        root = root.left;
+      }
+    }
+
+    return floor;
   }
 
   /**
