@@ -68,6 +68,20 @@ class BST {
           break;
         }
         node = node.left;
+      } else {
+        break;
+        /*
+        if (!node.left) {
+          node.left = new Node(val);
+          break;
+        }
+        node = node.left;
+        while (node.right) {
+          node = node.right;
+        }
+
+        node.right = new Node(val);
+        break; */
       }
     }
 
