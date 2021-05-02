@@ -1,0 +1,26 @@
+{
+  "name": "dsa",
+  "version": "1.0.0",
+  "description": "DSA Learning",
+  "main": "",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GenaroVS/DSA.git"
+  },
+  "keywords": [],
+  "author": "Genaro V. Salinas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GenaroVS/DSA/issues"
+  },
+  "homepage": "https://github.com/GenaroVS/DSA#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
