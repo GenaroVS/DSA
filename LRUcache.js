@@ -1,4 +1,4 @@
-const DDL = require('./doubly-linked-list.js');
+const DDL = require('./DoublyLinkedList.js');
 
 /**
  * @param {number} capacity
@@ -20,7 +20,7 @@ class LRUCache {
     if (node) {
       var value = node.val;
       this.list.remove(node)
-      this.map[key] = this.list.push(key, value);
+      this.list.push(key, value);
       return value;
     }
     return -1;
@@ -37,11 +37,12 @@ class LRUCache {
       this.list.remove(node);
       this.size--;
     }
-    this.map[key] = this.list.push(key, value);
+    this.list.push(key, value);
+    this.map[key] = this.list.get(this.list.length - 1);
     this.size++;
     if (this.size > this.cap) {
-      delete this.map[this.list.head.key];
-      this.list.remove(this.list.head);
+      let head = this.list.shift();
+      delete this.map[head.key];
       this.size--;
     }
   }
