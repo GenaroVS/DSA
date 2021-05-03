@@ -1,6 +1,7 @@
 class Trie {
   constructor() {
-    this.word = false;
+    this.word = null;
+    this.baseTenNum = null;
     this.wordCount = 0;
     this.children = {};
   }
@@ -39,23 +40,18 @@ class Trie {
     node.baseTenNum = num;
   }
 
-  remove(word, i = 0, canDelete = true) {
+  remove(word, i = 0) {
     if (!this) return;
     else if (this.word === word) {
       this.word = false;
-      return true;
+      return this.isEmpty() ? false : true;
     }
 
-    canDelete = this.children[word[i]].remove(word, i + 1, canDelete);
+    var char = word[i];
+    var hasSubTree = this.children[char].remove(word, i + 1);
 
-    if (!canDelete) return false;
-
-    if (this.word) return false; // reached end of unique chars for word
-    var count = 0;
-    for (var char in this.children) count += 1; // Check if tail
-    if (count === 1 && canDelete) node.children = {};
-
-    return true;
+    if (!hasSubTree) delete this.children[char];
+    return this.isEmpty() && !this.word ? false : true;
   }
 
   /**
@@ -68,7 +64,7 @@ class Trie {
     if (node.word) words.push(node.word);
 
     for (var char in node.children) {
-      words = getWords(node.children[char], words);
+      words = this.getWords(node.children[char], words);
     }
 
     return words;
@@ -143,6 +139,13 @@ class Trie {
     }
 
     return this.getWords(node);
+  }
+
+  isEmpty(root = this) {
+    for (var char in root.children) {
+      return false;
+    }
+    return true;
   }
 }
 

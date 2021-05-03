@@ -22,5 +22,8 @@
   "homepage": "https://github.com/GenaroVS/DSA#readme",
   "devDependencies": {
     "jest": "^26.6.3"
+  },
+  "jest": {
+
   }
 }
