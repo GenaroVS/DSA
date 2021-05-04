@@ -33,7 +33,7 @@ class Queue {
   /**
    * @returns {*}
    */
-  dequeque() {
+  dequeue() {
     var temp = this.first;
     if (this.size === 0) return null;
     if (this.size === 1) {
