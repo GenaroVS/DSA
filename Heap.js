@@ -3,6 +3,10 @@ class MaxHeap {
     this.storage = arr;
   }
 
+  getMax() {
+    return this.storage[0];
+  }
+
   /**
    * Heapify the entire tree
    */
@@ -134,6 +138,10 @@ class MaxHeap {
 class MinHeap {
   constructor(arr = []) {
     this.storage = arr;
+  }
+
+  getMin() {
+    return this.storage[0];
   }
 
   /**
