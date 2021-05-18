@@ -108,7 +108,6 @@ let board = [
   [null, 3, 1, null, null, 9, null, null, null]
 ];
 
-debugger;
 console.table(solveSudoku(board));
 
 
