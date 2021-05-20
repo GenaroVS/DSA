@@ -2,6 +2,7 @@ const DDL = require('./DoublyLinkedList.js');
 
 /**
  * @param {number} capacity
+ * @return {object}
  */
 class LRUCache {
   constructor(capacity) {

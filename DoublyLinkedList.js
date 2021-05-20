@@ -10,12 +10,19 @@ class DoublyLinkedList {
    * @param {*} val
    * @return {node}
    */
-  createNode(key, val) {
+  createNode(key, val, ...rest) {
+    let paramsObj = {};
+
+    for (var i = 0; i < rest.length; i++) {
+      paramsObj[rest[i]] = rest[i];
+    }
+
     return {
       key,
       val,
       next: null,
-      prev: null
+      prev: null,
+      ...paramsObj
     }
   }
 
