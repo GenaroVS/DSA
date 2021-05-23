@@ -151,30 +151,25 @@ class Graph {
 
     function hasCycleUtil(adj, visited, vertex) {
       if (visited[vertex]) return true;
-
       visited[vertex] = true;
-
       for (var i = 0; i < adj[vertex].length; i++) {
         if (hasCycleUtil(adj, visited, adj[vertex][i])) {
           return true;
         }
       }
-
       return false;
     }
 
     var visited = Array(this.vertices).fill(false);
-
     for (var i = 0; i < this.vertices; i++) {
       visited[i] = true;
       for (var j = 0; j < this.adjacencyList[i].length; j++) {
-        if (this.hasCycleUtil(this.adjacencyList, visited, adj[i][j])) {
+        if (hasCycleUtil(this.adjacencyList, visited, this.adjacencyList[i][j])) {
           return true;
         }
       }
       visited[i] = false;
     }
-
     return false;
   }
 }
