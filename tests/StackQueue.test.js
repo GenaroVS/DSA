@@ -1,6 +1,5 @@
 const Stack = require('../Stack.js');
 const Queue = require('../Queue.js');
-const { TestScheduler } = require('@jest/core');
 var stack, queue;
 
 describe('Stack and Queue', () => {

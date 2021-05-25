@@ -134,15 +134,6 @@ class HashTable {
   }
 }
 
-/* const table = new HashTable(4);
-table.set('genaro', 'salinas');
-console.log(table.get('genaro'));
-table.set('genaro', 'vidal');
-table.set('alejandro', 'andres');
-table.set('toddy', 5);
-console.log(table.values());
-console.log(table.keys());
-table.delete('alejandro');
-console.log(table.get('alejandro')); */
+module.exports = HashTable;
 
 

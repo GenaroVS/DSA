@@ -87,20 +87,4 @@ class LFUCache {
   }
 };
 
-let cache = new LFUCache(2);
-cache.set('abc', '123');
-cache.set('genaro', 'salinas');
-cache.get('genaro');
-console.dir(cache.values);
-cache.set('alex', 'andes');
-console.dir(cache.values);
-cache.get('alex');
-cache.get('alex');
-cache.get('alex');
-console.dir(cache.values);
-cache.set('cool', 'beans');
-console.dir(cache.values);
-
-
-
 module.exports = LFUCache;

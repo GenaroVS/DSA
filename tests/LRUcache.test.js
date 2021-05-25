@@ -1,4 +1,4 @@
-const { test, expect, beforeAll } = require('@jest/globals');
+const { test, expect, beforeEach } = require('@jest/globals');
 const LRU = require('../LRUcache.js');
 let lru = null;
 
