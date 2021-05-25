@@ -5,8 +5,24 @@ For example, given the array [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 
 */
 
 const longestIncrSeq = (nums) => {
+  if (nums.length === 1) return 1;
+  let maxLength = 0;
+  let dp = Array(nums.length).fill(1);
 
+  for (var i = 0; i < nums.length; i++) {
+    for (var j = 0; j < i; j++) {
+      if (nums[j] < nums[i] && dp[j] + 1 > dp[i]) {
+        dp[i] = dp[j] + 1;
+      }
+    }
+  }
+
+  for (var count of dp) {
+    maxLength = Math.max(count, maxLength);
+  }
+
+  return maxLength;
 };
 
 let nums = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15];
-console.log(longestIncrSeq(nums))
+console.log(longestIncrSeq(nums)) // 6: 0,2,6,9,11,15
