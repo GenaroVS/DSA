@@ -67,10 +67,11 @@ const hasCycleUDG = (adjacencyList, vertices) => { // FOR UNDIRECTED GRAPHS USIN
 
 /**
  * Optimized hasCycle using disjoin set with path compression FIND and UNION by rank.
+ * O(log(V))
  * @param {vertices[]} edges
  * @return {boolean}
  */
-const hasCycleDisjointSet = (numVertices, edges) => {
+const hasCycle = (numVertices, edges) => {
   let sets = Array(numVertices).fill({ parent: -1, rank: 0 }); // Array rep of disjoint set
 
   for (var [from, to] of edges) {
@@ -113,3 +114,5 @@ const union = (sets, parent1, parent2) => {
     sets[parent2].parent = parent1;
   }
 };
+
+module.exports = hasCycle;
