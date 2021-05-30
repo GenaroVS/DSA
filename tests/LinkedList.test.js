@@ -5,35 +5,62 @@ describe('Linked List', () => {
 
   beforeEach(() => {
     list = new LinkedList();
+    list.push('A');
+    list.push('B');
   })
 
   test('Shift, Unshift, Push, and Pop methods', () => {
-    list.push('A');
-    list.push('B');
-    expect(list.pop()).toBe('B');
+    expect(list.pop().val).toBe('B');
     list.unshift('B');
-    expect(list.shift()).toBe('B');
-    expect(list.pop()).toBe('A');
+    expect(list.shift().val).toBe('B');
+    expect(list.pop().val).toBe('A');
     expect(list.pop()).toBeNull();
   });
 
   test('Get and Set methods', () => {
+    list.set(1, 'C');
+    expect(list.get(1).val).toBe('C');
+  });
 
+  test('Transforms to and from an array', () => {
+    list.push('C');
+    list.push('D');
+    let arr = list.toArray();
+    expect(arr).toEqual(['A','B','C','D']);
+    let cur = new LinkedList().fromArray(arr);
+    let i = 0;
+    while (cur) {
+      expect(cur.val).toBe(arr[i]);
+      i += 1;
+      cur = cur.next;
+    }
   });
 
   test('addAt and deleteAt methods', () => {
+    list.addAt(0, 'Z');
+    list.addAt(2, 'C');
 
   });
 
-  test('Detects cycles', () => {
-
+  test('Detects cycles and returns start of loop if cycle exists', () => {
+    expect(list.hasCycle()).toBe(false);
+    list.push('C');
+    let node = list.get(1);
+    list.push('D', node);
+    expect(list.hasCycle().val).toBe('B');
   });
 
   test('Gets the intersection if cycle exists', () => {
-
+    list.push('C');
+    list.push('D');
+    let node = list.get(1);
+    let list2 = new LinkedList();
+    list2.push('Z');
+    list2.push('Y', node);
+    expect(list.getIntersection(list2.getHead()).val).toBe('B');
   });
 
-  test('Reverses itself', () => {
+/*   test('Reverses itself', () => {
 
   });
 
@@ -43,9 +70,6 @@ describe('Linked List', () => {
 
   test('Rotates k times', () => {
 
-  });
+  }); */
 
-  test('Transforms to and from an array', () => {
-
-  });
 });

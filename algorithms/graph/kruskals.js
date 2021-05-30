@@ -7,7 +7,7 @@ const hasCycle = require('./hasCycle');
  * @param {number[][]} edges
  * @return {} Minimum Spanning Tree
  */
-const kruskals = (V, edges) => {
+const findMST = (V, edges) => { // Kruskal's algorithm
   let mst = [];
   let sortedEdges = edges.sort((a, b) => {
     return a.weight - b.weight;

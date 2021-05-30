@@ -14,6 +14,9 @@ class LinkedList {
     return { val, next }
   }
 
+  getHead() { return this.head };
+  getTail() { return this.tail };
+
   /**
    * @param {*} val Value added at the start
    * @return {void}
@@ -31,8 +34,8 @@ class LinkedList {
    * @param {*} val Value added at the end
    * @return {void}
    */
-  push(val) {
-    var node = this.createNode(val, null);
+  push(val, next = null) {
+    var node = this.createNode(val, next);
     if (!this.head) {
         this.head = node;
         this.tail = node;
@@ -71,7 +74,7 @@ class LinkedList {
       return this.shift();
     }
 
-    var cur = head;
+    var cur = this.head;
     while (cur.next.next) {
       cur = cur.next;
     }
@@ -118,15 +121,19 @@ class LinkedList {
    */
   addAt(i, val) {
     if (i < 0 || i > this.length) return false;
-    if (i === 0) this.unshift(val);
-    else if (i === this.length) this.push(val);
+    if (i === 0) {
+      this.unshift(val);
+      return;
+    } else if (i === this.length) {
+      this.push(val);
+      return;
+    }
 
     var prev = this.get(i - 1);
     var node = this.createNode(val, null);
     node.next = prev.next;
     prev.next = node;
     this.length += 1;
-    return true;
   }
 
   /**
@@ -182,7 +189,7 @@ class LinkedList {
       slow = slow.next;
       fast = fast.next.next;
       if (slow === fast) {
-        slow = head;
+        slow = this.head;
         while (slow !== fast) {
           slow = slow.next;
           fast = fast.next;
