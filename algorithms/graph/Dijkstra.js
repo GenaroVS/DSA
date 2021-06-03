@@ -3,6 +3,7 @@ const { MinHeap } = require('../../Heap.js');
 
 /**
  * Find the smallest path between two vertices of a weighted graph
+ * Doesn't work with UDG with negative edges OR DG with negative edge cycles
  * O(Vlog(V) + Elog(V))
  * @param {any} start
  * @param {any} end
@@ -11,7 +12,6 @@ const { MinHeap } = require('../../Heap.js');
 const shortestPath = (graph, start, end) => { // Dijkstra's Algorithm
   let minDists = {};
   let parents = {};
-  let path = [];
   let distQueue = new MinHeap();
 
   for (var vertex in graph.adjacencyList) {
@@ -30,7 +30,7 @@ const shortestPath = (graph, start, end) => { // Dijkstra's Algorithm
       return parents;
     };
 
-    if (vertex || distances[vertex] !== Infinity) {
+    if (vertex || minDists[vertex] !== Infinity) {
       graph.adjacencyList[vertex].forEach(neighbor => {
         var dist = minDists[vertex] + neighbor.weight;
         if (dist < minDists[neighbor.vertex]) {
