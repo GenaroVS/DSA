@@ -60,16 +60,28 @@ describe('Linked List', () => {
     expect(list.getIntersection(list2.getHead()).val).toBe('B');
   });
 
-/*   test('Reverses itself', () => {
-
+  test('Reverses itself', () => {
+    list.push('C');
+    list.push('D');
+    list.reverse();
+    expect(list.toArray()).toEqual(['D','C','B','A']);
   });
 
   test('Merges with another linked list', () => {
-
+    let list2 = new LinkedList();
+    list2.push('C');
+    list2.push('D');
+    let list3 = list.merge(list2.getHead());
+    expect(list3.toArray()).toEqual(['A','B','C','D']);
   });
 
   test('Rotates k times', () => {
-
-  }); */
+    list.push('C');
+    list.push('D');
+    list.rotate(2);
+    expect(list.toArray()).toEqual(['C','D','A','B']);
+    list.rotate(-2);
+    expect(list.toArray()).toEqual(['A','B','C','D']);
+  });
 
 });

@@ -256,7 +256,7 @@ class LinkedList {
     var node1 = this.head;
     var node2 = l2;
     var node3 = this.createNode(null, null);
-    var merged = new LinkedNode(node3, null);
+    var merged = new LinkedList(node3, null);
 
     while (node1 || node2) {
       if (!node2 || (node1 && node1.val < node2.val)) {
@@ -274,7 +274,6 @@ class LinkedList {
       node3 = node3.next;
     }
 
-    this.length += l2.length;
     return merged;
   }
 
@@ -292,8 +291,8 @@ class LinkedList {
 
     var cur = this.head;
     while (k > 1) { // stop at prev (new tail) of new head
-        cur = cur.next;
-        k -= 1;
+      cur = cur.next;
+      k -= 1;
     }
 
     var newHead = cur.next;
