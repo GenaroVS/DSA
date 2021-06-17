@@ -26,9 +26,4 @@ def next_permutation(nums):
 
 
 
-
-
-
-
-
 print(next_permutation([2,1,3]))
