@@ -6,25 +6,20 @@ def longest_consecutive_seq(nums):
   :int[]: nums
   """
   largestSet = 0
-  local_len = 0
-  max_num = 0
+
+  nums = set(nums)
 
   for num in nums:
-    max_num = max(num, max_num)
-
-  set = [None] * (max_num + 1)
-
-  for num in nums:
-    set[num] = num
-
-  for i,num in enumerate(set):
-    if type(num) == int:
-      local_len += 1
-    else:
-      local_len = 0
-    largestSet = max(largestSet, local_len)
+    if num - 1 not in nums:
+      end = num + 1
+      while end in nums:
+        end += 1
+      largestSet = max(largestSet, end - num)
 
   return largestSet
+
+
+
 
 
 
