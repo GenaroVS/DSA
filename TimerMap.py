@@ -1,8 +1,8 @@
-
 class TimerMap():
 
   def __init__(self):
     self.map = dict()
+    self.times
 
   def set(self, key, val, time):
     if key not in self.map:
