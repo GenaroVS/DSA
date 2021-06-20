@@ -1,8 +1,7 @@
 from math import ceil
 
 def isPrime(n):
-  end = round(n / 2)
-  for num in range(2, end):
+  for num in range(2, n // 2):
     if n % num == 0:
       return False
 
