@@ -8,7 +8,7 @@ def calc_steps(x1, y1, x2, y2):
   xDif = abs(x2 - x1)
   yDif = abs(y2 - y1)
 
-  if xDif > yDif or xDif == yDif:
+  if xDif >= yDif:
     return xDif
   if yDif > xDif:
     return yDif
