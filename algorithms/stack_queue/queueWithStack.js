@@ -1,4 +1,4 @@
-const Stack = require('../Stack.js');
+const Stack = require('../../Stack.js');
 
 /*
 Implement a queue using two stacks.
